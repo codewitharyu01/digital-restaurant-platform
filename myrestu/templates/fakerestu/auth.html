@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            background: linear-gradient(135deg, #ffffffff 0%, #ffffffff 100%);
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Left Side - Image Section */
+        .left-section {
+            flex: 0 0 45%;
+            background: linear-gradient(145deg, #c94c4c 0%, #a33a3a 50%, #8b2d2d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+            overflow: visible;
+            border-radius: 0 50% 50% 0 / 0 50% 50% 0;
+        }
+
+        .logo-text {
+            position: absolute;
+            
+            left: 60px;
+            color: black;
+            font-size: 30px;
+            font-weight: bold;
+            z-index: 10;
+            
+            font-family: 'Poppins',sans-serif;
+        }
+
+
+        /* Concentric curved lines */
+        .curved-line {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-left: none;
+            border-radius: 0 50% 50% 0 / 0 50% 50% 0;
+        }
+
+        .curved-line:nth-child(1) {
+            width: 70%;
+            height: 90%;
+        }
+
+        .curved-line:nth-child(2) {
+            width: 60%;
+            height: 80%;
+        }
+
+        .curved-line:nth-child(3) {
+            width: 50%;
+            height: 70%;
+        }
+
+        .curved-line:nth-child(4) {
+            width: 40%;
+            height: 60%;
+        }
+
+        .curved-line:nth-child(5) {
+            width: 30%;
+            height: 50%;
+        }
+
+        .food-bowl {
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.3),
+                0 10px 20px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            right: -80px;
+            z-index: 10;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .food-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            transform: scale(1.4);
+        }
+
+        /* Right Side - Login Form */
+        .right-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: #ffffff;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .login-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #636e72;
+            font-size: 14px;
+        }
+
+        .login-header a {
+            color: #c94c4c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .login-header a:hover {
+            color: #a33a3a;
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #2d3436;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 45px 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #c94c4c;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(201, 76, 76, 0.1);
+        }
+
+        .form-group input.valid {
+            border-color: #27ae60;
+            background: #ffffff;
+        }
+
+        .form-group input.invalid {
+            border-color: #e74c3c;
+            background: #fff9f9;
+        }
+
+        .validation-icon {
+            position: absolute;
+            right: 14px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+
+        .validation-icon.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .validation-icon.valid {
+            background: #27ae60;
+            color: white;
+        }
+
+        .validation-icon.invalid {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #636e72;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #c94c4c;
+        }
+
+        /* OTP Section */
+        .otp-section {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.5s ease;
+            margin-bottom: 0;
+        }
+
+        .otp-section.show {
+            max-height: 200px;
+            opacity: 1;
+            margin-bottom: 24px;
+        }
+
+        .otp-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .otp-header label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #2d3436;
+        }
+
+        .resend-btn {
+            background: none;
+            border: none;
+            color: #c94c4c;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .resend-btn:hover {
+            color: #a33a3a;
+            text-decoration: underline;
+        }
+
+        .resend-btn:disabled {
+            color: #b2bec3;
+            cursor: not-allowed;
+        }
+
+        .otp-inputs {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .otp-input {
+            width: 52px;
+            height: 58px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fafafa;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .otp-input:focus {
+            outline: none;
+            border-color: #c94c4c;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(201, 76, 76, 0.1);
+        }
+
+        .otp-message {
+            text-align: center;
+            font-size: 13px;
+            color: #636e72;
+            margin-top: 12px;
+        }
+
+        .otp-message span {
+            color: #c94c4c;
+            font-weight: 500;
+        }
+
+        /* Terms & Conditions */
+        .terms-section {
+            margin-bottom: 28px;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .custom-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #d0d0d0;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            margin-top: 2px;
+        }
+
+        .checkbox-wrapper:hover .custom-checkbox {
+            border-color: #c94c4c;
+        }
+
+        .checkbox-wrapper input {
+            display: none;
+        }
+
+        .checkbox-wrapper input:checked + .custom-checkbox {
+            background: #c94c4c;
+            border-color: #c94c4c;
+        }
+
+        .checkbox-wrapper input:checked + .custom-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .terms-text {
+            font-size: 13px;
+            color: #636e72;
+            line-height: 1.5;
+        }
+
+        .terms-text a {
+            color: #c94c4c;
+            text-decoration: none;
+            font-weight: 500;
+            
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Login Button */
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #c94c4c 0%, #a33a3a 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(201, 76, 76, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 76, 76, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            background: #b2bec3;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Forgot Password */
+        .forgot-password {
+            text-align: right;
+            margin-top: -16px;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            font-size: 13px;
+            color: #636e72;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #c94c4c;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-section {
+                min-height: 300px;
+                flex: none;
+                border-radius: 0 0 50% 50% / 0 0 30% 30%;
+                justify-content: center;
+            }
+
+            .curved-line {
+                display: none;
+            }
+
+            .food-bowl {
+                width: 220px;
+                height: 220px;
+                position: relative;
+                right: auto;
+            }
+
+            .right-section {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 16px 24px;
+            background: #2d3436;
+            color: white;
+            border-radius: 12px;
+            font-size: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateX(150%);
+            transition: transform 0.4s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: #27ae60;
+        }
+
+        .toast.error {
+            background: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section - Food Image -->
+        <div class="left-section">
+            <div class="logo-text">
+                <h1 style="margin-right:30px">Tasty Byte</h1>
+                <h1 style="margin-left:7px;font-size: 29px;color: #231111ff;">Restaurant</h1>
+                
+            </div>
+            
+            <div class="curved-line"></div>
+            <div class="curved-line"></div>
+            <div class="curved-line"></div>
+            <div class="curved-line"></div>
+            <div class="curved-line"></div>
+            <div class="food-bowl">
+                <img src="https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/themes/2148642799/settings_images/8vReH7ORFC4SAR9Q3ARb_file.jpg" alt="Healthy Food Bowl" class="food-image">
+            </div>
+        </div>
+
+        <!-- Right Section - Login Form -->
+        <div class="right-section">
+            <div class="login-form">
+                <div class="login-header">
+                    <h1>Login</h1>
+                    <p>Are you new? <a href="{% url 'create_new_account' %}" >Create new account</a></p>
+                </div>
+
+                {% if messages %}
+    {% for message in messages %}
+        <div style="color: white; background-color: #ff4d4d; padding: 10px; border-radius: 5px; margin-bottom: 10px; text-align: center;">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+                <form id="loginForm" method="POST">
+                    {% csrf_token %} 
+
+                  
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="email" 
+                                id="email" 
+                                placeholder="Enter your Gmail address"
+                                autocomplete="email"
+                                name="email"
+                            >
+                            <span class="validation-icon" id="emailIcon">✓</span>
+                        </div>
+                    </div>
+                  
+
+                    <!-- Password Field -->
+
+                  
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                name="password"
+                            >
+                            <button type="button" class="password-toggle" id="togglePassword">
+                                👁️
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#">Forgot password?</a>
+                    </div>
+
+                   
+
+                    <!-- OTP Section (Hidden by default) -->
+
+                  
+                    <!--
+                    <div class="otp-section" id="otpSection">
+                        <div class="otp-header">
+                            <label>Enter OTP</label>
+                            <button type="button" class="resend-btn" id="resendBtn">Resend OTP</button>
+                        </div>
+                        <div class="otp-inputs">
+                            <input type="text" class="otp-input" maxlength="1" data-index="0">
+                            <input type="text" class="otp-input" maxlength="1" data-index="1">
+                            <input type="text" class="otp-input" maxlength="1" data-index="2">
+                            <input type="text" class="otp-input" maxlength="1" data-index="3">
+                            <input type="text" class="otp-input" maxlength="1" data-index="4">
+                            <input type="text" class="otp-input" maxlength="1" data-index="5">
+                        </div>
+                        <p class="otp-message">OTP sent to <span id="maskedEmail"></span></p>
+                    </div>
+                    -->
+                    
+                    
+
+                    <!-- Terms & Conditions -->
+                    <div class="terms-section">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" id="termsCheckbox">
+                            <span class="custom-checkbox"></span>
+                            <span class="terms-text">
+                                I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Login Button -->
+
+                   
+                   
+                    <button  onclick="window.location.href='{% url 'home_page' %}'" type="submit" class="login-btn" id="loginBtn" style="width: 100%;
+            padding: 16px;">Login</button>
+
+                  
+
+                    <p style="color: red;">{{error}}</p>
+
+                
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // DOM Elements
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailIcon = document.getElementById('emailIcon');
+        const otpSection = document.getElementById('otpSection');
+        const maskedEmail = document.getElementById('maskedEmail');
+        const togglePassword = document.getElementById('togglePassword');
+        const termsCheckbox = document.getElementById('termsCheckbox');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginForm = document.getElementById('loginForm');
+        const resendBtn = document.getElementById('resendBtn');
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const toast = document.getElementById('toast');
+
+        // Gmail validation regex
+        const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+        // Validate email in real-time
+        emailInput.addEventListener('input', function() {
+            const email = this.value.trim();
+            
+            if (email === '') {
+                emailIcon.classList.remove('show', 'valid', 'invalid');
+                this.classList.remove('valid', 'invalid');
+                otpSection.classList.remove('show');
+                return;
+            }
+
+            if (gmailRegex.test(email)) {
+                // Valid Gmail
+                emailIcon.classList.add('show', 'valid');
+                emailIcon.classList.remove('invalid');
+                emailIcon.textContent = '✓';
+                this.classList.add('valid');
+                this.classList.remove('invalid');
+                
+                // Show OTP section
+                otpSection.classList.add('show');
+                maskedEmail.textContent = maskEmail(email);
+                
+                showToast('OTP sent to your email!', 'success');
+            } else {
+                // Invalid email
+                emailIcon.classList.add('show', 'invalid');
+                emailIcon.classList.remove('valid');
+                emailIcon.textContent = '✗';
+                this.classList.add('invalid');
+                this.classList.remove('valid');
+                
+                // Hide OTP section
+                otpSection.classList.remove('show');
+            }
+        });
+
+        // Mask email for display
+        function maskEmail(email) {
+            const [localPart, domain] = email.split('@');
+            if (localPart.length <= 3) {
+                return localPart[0] + '***@' + domain;
+            }
+            return localPart.substring(0, 3) + '***@' + domain;
+        }
+
+        // Toggle password visibility
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            this.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+
+        // OTP input handling
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', function(e) {
+                // Only allow numbers
+                this.value = this.value.replace(/[^0-9]/g, '');
+                
+                // Auto-focus next input
+                if (this.value && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', function(e) {
+                // Handle backspace
+                if (e.key === 'Backspace' && !this.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+
+            // Handle paste
+            input.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text').replace(/[^0-9]/g, '');
+                
+                for (let i = 0; i < pastedData.length && index + i < otpInputs.length; i++) {
+                    otpInputs[index + i].value = pastedData[i];
+                }
+                
+                const nextIndex = Math.min(index + pastedData.length, otpInputs.length - 1);
+                otpInputs[nextIndex].focus();
+            });
+        });
+
+        // Resend OTP
+        let resendTimeout;
+        resendBtn.addEventListener('click', function() {
+            this.disabled = true;
+            let countdown = 30;
+            this.textContent = `Resend in ${countdown}s`;
+            
+            resendTimeout = setInterval(() => {
+                countdown--;
+                this.textContent = `Resend in ${countdown}s`;
+                
+                if (countdown <= 0) {
+                    clearInterval(resendTimeout);
+                    this.disabled = false;
+                    this.textContent = 'Resend OTP';
+                }
+            }, 1000);
+            
+            showToast('OTP resent successfully!', 'success');
+        });
+
+        // Form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const termsAccepted = termsCheckbox.checked;
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+            
+            // Validation
+            if (!gmailRegex.test(email)) {
+                showToast('Please enter a valid Gmail address', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showToast('Password must be at least 6 characters', 'error');
+                return;
+            }
+            
+            if (otp.length !== 6) {
+                showToast('Please enter the complete 6-digit OTP', 'error');
+                return;
+            }
+            
+            if (!termsAccepted) {
+                showToast('Please accept the Terms & Conditions', 'error');
+                return;
+            }
+            
+            // Success
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Logging in...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                showToast('Login successful! Welcome back!', 'success');
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Login';
+            }, 2000);
+        });
+
+        // Toast notification
+        function showToast(message, type = '') {
+            toast.textContent = message;
+            toast.className = 'toast show';
+            if (type) toast.classList.add(type);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
