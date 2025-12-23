@@ -534,6 +534,14 @@
                     
                 </div>
 
+                 {% if messages %}
+    {% for message in messages %}
+        <div style="color: white; background-color: #1e9007ff; padding: 10px; border-radius: 5px; margin-bottom: 10px; text-align: center;">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
                 <form id="loginForm" method="POST">
 
                     {% csrf_token %} 
