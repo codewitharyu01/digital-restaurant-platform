@@ -14,11 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.shortcuts import redirect
 from django.contrib import admin
 from django.urls import path,include
 from fakerestu.views import *
 
+def root_redirect(request):
+    return redirect('auth')
+
 urlpatterns = [
+    path("",root_redirect),
     path('admin/', admin.site.urls),
     path("fakerestu/",include('fakerestu.urls')),
     path("home/",home,name='home_page'),
@@ -27,3 +32,4 @@ urlpatterns = [
     
    
 ]
+
