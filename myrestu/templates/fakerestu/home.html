@@ -362,6 +362,9 @@
     </style>
 </head>
 <body>
+
+    {% load static %}
+
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
@@ -383,7 +386,7 @@
                 </div>
                 <div class="hero-right">
                     <div class="burger-image">
-                        <img  src="/static/image/kfc.png" style="mix-blend-mode: multiply; "  alt="Delicious Burger">
+                        <img  src="{% static 'image/kfc.png' %}" style="mix-blend-mode: multiply; "  alt="Delicious Burger">
                         <div class="burger-shadow"></div>
                     </div>
                     <!-- Decorative vegetables - Larger -->
