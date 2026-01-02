@@ -30,6 +30,8 @@ class EmailOTP(models.Model):
     otp=models.CharField(max_length=6)
     is_verified=models.CharField(default=False)
     created_at=models.DateTimeField(auto_now_add=True)
+    
+
 
     def __str__(self):
         return self.email
@@ -38,6 +40,11 @@ class CreateNewAccount(models.Model):
     name=models.CharField(max_length=200)
     email=models.EmailField(unique=True)
     password=models.CharField(default=False)
+
+class Repass(models.Model):
+    repassword=models.CharField(max_length=200)  
+    
+    
 
      
 

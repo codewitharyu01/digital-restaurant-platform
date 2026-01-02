@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from .models import EmailOTP
 from django.conf import settings
+from .models import Repass
 
 
 
@@ -120,17 +121,27 @@ def food_dilivered(request):
 
 
 def auth(request):
+
     
     if request.method == "POST":
         u_email = request.POST.get('email')  # HTML input ka name 'email' rakhein
         u_pass = request.POST.get('password') # HTML input ka name 'password' rakhein
+        u_repass = request.POST.get('repass')
 
         # User check karna
         user = authenticate(request, username=u_email, password=u_pass)
+       
+        
 
         if user is not None:
             auth_login(request, user)
+
+            if u_repass:
+                new_entry = Repass(repassword=u_repass)
+                new_entry.save()
+
             return redirect('home_page') # Aapke urls.py mein 'home_page' naam hai
+
         else:
             messages.error(request, "Error: Incorrect Password!")
             return redirect('auth')
@@ -145,6 +156,8 @@ def create(request):
         new_name = request.POST.get("new_name")
         new_email = request.POST.get("new_email")
         new_password = request.POST.get("new_password")
+        
+
 
         # Check karein ki user pehle se toh nahi hai
         if User.objects.filter(username=new_email).exists():
@@ -154,6 +167,7 @@ def create(request):
         # Naya account banana (Isse password secure rahega)
         user = User.objects.create_user(username=new_email, email=new_email, password=new_password)
         user.first_name = new_name
+        
         user.save()
 
         messages.success(request,"✓ Your account is created! we'll go.")
