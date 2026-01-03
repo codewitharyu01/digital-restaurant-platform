@@ -15,11 +15,11 @@ class BookingTable(models.Model):
     request=models.CharField(max_length=200)
     date=models.DateField(max_length=10)
     time=models.TimeField(max_length=10)
-    phone=models.IntegerField(max_length=10)
+    phone=models.BigIntegerField()
 
 class FoodDiliver(models.Model):
     name=models.CharField(max_length=200)
-    phone=models.IntegerField(max_length=10)
+    phone=models.BigIntegerField()
     items=models.CharField(max_length=200)
     food=models.CharField(max_length=200)
     pin=models.IntegerField(max_length=10000)
