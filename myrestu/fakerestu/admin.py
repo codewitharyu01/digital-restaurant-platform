@@ -3,8 +3,8 @@ from .models import Repass,FoodDiliver,BookingTable,FeedbackForm
 
 # Register your models here.
 
-admin.register(Repass)
-admin.register(FoodDiliver)
-admin.register(BookingTable)
-admin.register(FeedbackForm)
+admin.site.register(Repass)
+admin.site.register(FoodDiliver)
+admin.site.register(BookingTable)
+admin.site.register(FeedbackForm)
 
