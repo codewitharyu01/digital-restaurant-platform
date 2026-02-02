@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'myrestu.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL','postgresql://myrestu_db_user:Pz0GY5NryDpqVrn4K8oSwb9oG4hs9DWI@dpg-d5c0ro2li9vc73c2ksqg-a.virginia-postgres.render.com/myrestu_db'),
+        default=os.environ.get('DATABASE_URL','postgresql://myrestu_new_db_user:akTd4E3lPBN2WtkzIGywnoq1XsRo6DVK@dpg-d60dao78bdcs73f0hfrg-a.virginia-postgres.render.com/myrestu_new_db'),
         conn_max_age=600
     )
 }
