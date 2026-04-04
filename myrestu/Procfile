@@ -1,1 +1,1 @@
-web: gunicorn myrestu.wsgi
+web:gunicorn myrestu.wsgi
