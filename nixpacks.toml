@@ -1,0 +1,9 @@
+[phases.setup]
+nixPkgs = ["python310"]
+
+[phases.install]
+cmds = ["cd myrestu && pip install-r requirements.txt"]
+
+[start]
+
+cmd = "cd myrestu && gunicorn myrestu.wsgi"
