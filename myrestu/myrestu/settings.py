@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-*w(i&-2^=eof#13-6_szflr03m75qb0y05ogyt@($qk98hud+2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["digital-restaurant-platform.onrender.com","localhost","127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'myrestu.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL','postgresql://myrestu_new_db_user:akTd4E3lPBN2WtkzIGywnoq1XsRo6DVK@dpg-d60dao78bdcs73f0hfrg-a.virginia-postgres.render.com/myrestu_new_db'),
+        default=os.environ.get('DATABASE_URL','postgresql://postgres:aeTqwArIHhTRPXOQthmaHyxLcXjlhXzp@postgres.railway.internal:5432/railway'),
         conn_max_age=600
     )
 }
