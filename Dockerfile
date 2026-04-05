@@ -20,4 +20,4 @@ RUN cd myrestu && python manage.py collectstatic --noinput
 
 # 7. Server start karein
 EXPOSE 8000
-CMD ["sh", "-c", "cd myrestu && gunicorn myrestu.wsgi --bind 0.0.0.0:${PORT:-8000}"]
+CMD ["sh", "-c", "cd myrestu && gunicorn myrestu.wsgi --bind 0.0.0.0:${PORT:-8080}"]
