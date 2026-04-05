@@ -1,11 +1,11 @@
 [phases.setup]
-nixPkgs = ["python310"]
+nixPkgs = ["python311"]
 
 [phases.install]
 cmds = ["cd myrestu && python -m pip install -r requirements.txt"]
 
 [phases.build]
-cmds = ["cd myrestu && python manage.py collectstatic --noinput && python manage.py migrate --noinput"]
+cmds = ["cd myrestu && python manage.py collectstatic --noinput"]
 
 [start]
 
