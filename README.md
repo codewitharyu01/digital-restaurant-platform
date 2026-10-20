@@ -26,7 +26,7 @@ A full-stack *Django* web application designed for a modern restaurant experienc
 ## 🚀 Installation & Local Setup
 
 1. *Clone the repository:*
-   ```bash
+   ```bash.
    git clone [https://github.com/codewitharyu01/digital-restaurant-platform.git](https://github.com/codewitharyu01/digital-restaurant-platform.git)
 
 
